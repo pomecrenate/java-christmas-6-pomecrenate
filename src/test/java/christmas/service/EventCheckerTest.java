@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class EventCheckerTest {
     @DisplayName("할인이 날짜와 주문에 따라 바르게 적용되는지 확인")
-    @ValueSource(ints = {1, 25, 26, 31})
+    @ValueSource(ints = {1, 19, 25, 26, 31})
     @ParameterizedTest
     void preciseDiscount(int input) {
         LocalDate reservationDate = Parser.parseIntToLocalDate(input);

@@ -81,7 +81,7 @@ public class EventMonth {
     }
 
     private static boolean isChristmas(LocalDate reservationDate) {
-        return reservationDate == CHRISTMAS;
+        return CHRISTMAS.isEqual(reservationDate);
     }
 
     public LocalDate getReservationDate() {
