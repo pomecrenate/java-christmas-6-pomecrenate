@@ -7,20 +7,19 @@ import static java.time.DayOfWeek.SUNDAY;
 import static java.time.DayOfWeek.THURSDAY;
 import static java.time.DayOfWeek.TUESDAY;
 import static java.time.DayOfWeek.WEDNESDAY;
-import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
-import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 import java.time.LocalDate;
 
 public class EventMonth {
     private static final int THIS_YEAR = 2023;
     private static final int THIS_MONTH = 12;
-    private static final LocalDate EVENT_MONTH = LocalDate.of(THIS_YEAR, THIS_MONTH, 1);
-    public static final LocalDate FIRST_DAY = EVENT_MONTH.with(firstDayOfMonth());
-    public static final LocalDate LAST_DAY = EVENT_MONTH.with(lastDayOfMonth());
+    private static final int FIRST_DAY = 1;
+    private static final LocalDate EVENT_MONTH = LocalDate.of(THIS_YEAR, THIS_MONTH, FIRST_DAY);
+    public static final LocalDate FIRST_DATE = EVENT_MONTH.withDayOfMonth(FIRST_DAY);
+    private static final int LAST_DAY = EVENT_MONTH.lengthOfMonth();
+    public static final LocalDate LAST_DATE = EVENT_MONTH.withDayOfMonth(LAST_DAY);
     private static final LocalDate CHRISTMAS = LocalDate.of(THIS_YEAR, 12, 25);
-    private int reservationDay = 1;
-    private final LocalDate reservationDate = LocalDate.of(THIS_YEAR, THIS_MONTH, reservationDay);
+    private final int reservationDay;
 
     private EventMonth(final int reservationDay) {
         this.reservationDay = reservationDay;
@@ -28,6 +27,16 @@ public class EventMonth {
 
     public static EventMonth from(final int reservationDay) {
         return new EventMonth(reservationDay);
+    }
+
+    public static boolean isDDay(LocalDate reservationDate) {
+        return reservationDate.isAfter(EVENT_MONTH.minusDays(FIRST_DAY)) &&
+                reservationDate.isBefore(CHRISTMAS.plusDays(FIRST_DAY));
+    }
+
+    public static boolean isThisMonth(LocalDate reservationDate) {
+        return reservationDate.isAfter(EVENT_MONTH.minusDays(FIRST_DAY)) &&
+                reservationDate.isBefore(LAST_DATE.plusDays(FIRST_DAY));
     }
 
     public static boolean isWeekday(LocalDate reservationDate) {
@@ -73,5 +82,9 @@ public class EventMonth {
 
     private static boolean isChristmas(LocalDate reservationDate) {
         return reservationDate == CHRISTMAS;
+    }
+
+    public LocalDate getReservationDate() {
+        return LocalDate.of(THIS_YEAR, THIS_MONTH, reservationDay);
     }
 }
