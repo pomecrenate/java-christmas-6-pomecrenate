@@ -11,7 +11,7 @@ import static java.time.DayOfWeek.WEDNESDAY;
 import java.time.LocalDate;
 
 public class EventMonth {
-    private static final int THIS_YEAR = 2023;
+    public static final int THIS_YEAR = 2023;
     private static final int THIS_MONTH = 12;
     private static final int FIRST_DAY = 1;
     private static final LocalDate EVENT_MONTH = LocalDate.of(THIS_YEAR, THIS_MONTH, FIRST_DAY);

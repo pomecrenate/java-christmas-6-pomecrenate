@@ -13,7 +13,7 @@ public class Parser {
         }
     }
 
-    public static String parseIntToString(int input) {
+    public static String parseIntToString(final int input) {
         return String.valueOf(input);
     }
 
@@ -36,7 +36,7 @@ public class Parser {
         return parseIntToString(intInput);
     }
 
-    public static BigDecimal parseIntToBigDecimal(int input) {
+    public static BigDecimal parseIntToBigDecimal(final int input) {
         return new BigDecimal(input);
     }
 
@@ -44,7 +44,7 @@ public class Parser {
         return input.intValue();
     }
 
-    public static LocalDate parseIntToLocalDate(int input) {
+    public static LocalDate parseIntToLocalDate(final int input) {
         EventMonth eventMonthInput = EventMonth.from(input);
         return eventMonthInput.getReservationDate();
     }
