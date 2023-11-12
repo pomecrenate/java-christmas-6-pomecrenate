@@ -26,7 +26,7 @@ public class EventChecker {
     public static BigDecimal applyEventDiscount(LocalDate reservationDate, OrderDetails orderDetails) {
         BigDecimal christmasDiscount = checkChristmasDiscount(reservationDate);
         BigDecimal decemberDiscount = checkDecemberDiscount(reservationDate, orderDetails);
-        BigDecimal specialDiscount = DecemberEvent.discountSpecialDay();
+        BigDecimal specialDiscount = checkSpecialEvent(reservationDate);
         return christmasDiscount.add(decemberDiscount).add(specialDiscount);
     }
 
@@ -60,6 +60,13 @@ public class EventChecker {
         Map<String, Integer> orderCategory = orderDetails.getOrderCategoryName();
         BigDecimal mainQuantity = new BigDecimal(orderCategory.getOrDefault(MAIN.getMenuCategoryName(), ZERO));
         return DecemberEvent.discountDecember(mainQuantity);
+    }
+
+    private static BigDecimal checkSpecialEvent(LocalDate reservationDate) {
+        if (!EventMonth.isSpecialDay(reservationDate)) {
+            return NOT_DISCOUNT;
+        }
+        return DecemberEvent.discountSpecialDay();
     }
 
     // 샴페인 증정
