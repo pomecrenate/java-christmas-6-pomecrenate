@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.constant;
 
 public enum MenuCategory {
     APPETIZER(1, "애피타이저"),

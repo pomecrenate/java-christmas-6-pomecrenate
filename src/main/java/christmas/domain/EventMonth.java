@@ -16,10 +16,19 @@ public class EventMonth {
     private static final int THIS_YEAR = 2023;
     private static final int THIS_MONTH = 12;
     private static final LocalDate EVENT_MONTH = LocalDate.of(THIS_YEAR, THIS_MONTH, 1);
-    private static final LocalDate FIRST_DAY = EVENT_MONTH.with(firstDayOfMonth());
-    private static final LocalDate LAST_DAY = EVENT_MONTH.with(lastDayOfMonth());
+    public static final LocalDate FIRST_DAY = EVENT_MONTH.with(firstDayOfMonth());
+    public static final LocalDate LAST_DAY = EVENT_MONTH.with(lastDayOfMonth());
     private static final LocalDate CHRISTMAS = LocalDate.of(THIS_YEAR, 12, 25);
-    private final LocalDate reservationDate = LocalDate.of(THIS_YEAR, THIS_MONTH, 1);
+    private int reservationDay = 1;
+    private final LocalDate reservationDate = LocalDate.of(THIS_YEAR, THIS_MONTH, reservationDay);
+
+    private EventMonth(final int reservationDay) {
+        this.reservationDay = reservationDay;
+    }
+
+    public static EventMonth from(final int reservationDay) {
+        return new EventMonth(reservationDay);
+    }
 
     public static boolean isWeekday(LocalDate reservationDate) {
         return isSunday(reservationDate) || isMonday(reservationDate) || isTuesday(reservationDate) ||
@@ -65,5 +74,4 @@ public class EventMonth {
     private static boolean isChristmas(LocalDate reservationDate) {
         return reservationDate == CHRISTMAS;
     }
-
 }

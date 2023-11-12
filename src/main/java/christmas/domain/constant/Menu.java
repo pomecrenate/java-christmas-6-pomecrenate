@@ -1,9 +1,9 @@
-package christmas.domain;
+package christmas.domain.constant;
 
-import static christmas.domain.MenuCategory.APPETIZER;
-import static christmas.domain.MenuCategory.BEVERAGE;
-import static christmas.domain.MenuCategory.DESSERT;
-import static christmas.domain.MenuCategory.MAIN;
+import static christmas.domain.constant.MenuCategory.APPETIZER;
+import static christmas.domain.constant.MenuCategory.BEVERAGE;
+import static christmas.domain.constant.MenuCategory.DESSERT;
+import static christmas.domain.constant.MenuCategory.MAIN;
 
 import java.math.BigDecimal;
 
