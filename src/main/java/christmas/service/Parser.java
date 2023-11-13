@@ -1,6 +1,5 @@
 package christmas.service;
 
-import christmas.domain.EventMonth;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

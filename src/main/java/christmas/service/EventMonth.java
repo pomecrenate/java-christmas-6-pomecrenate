@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.service;
 
 import static java.time.DayOfWeek.FRIDAY;
 import static java.time.DayOfWeek.MONDAY;

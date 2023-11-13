@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.service;
 
 import java.math.BigDecimal;
 

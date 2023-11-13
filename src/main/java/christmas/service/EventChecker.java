@@ -3,13 +3,11 @@ package christmas.service;
 import static christmas.domain.constant.MenuCategory.DESSERT;
 import static christmas.domain.constant.MenuCategory.MAIN;
 
-import christmas.domain.ChristmasEvent;
-import christmas.domain.DecemberEvent;
-import christmas.domain.EventMonth;
 import christmas.domain.OrderDetails;
 import christmas.domain.constant.Menu;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 public class EventChecker {
@@ -22,15 +20,8 @@ public class EventChecker {
     private static final int ONE = 1;
     private static final String NOT_APPLICABLE = "없음";
 
-    // 전체 할인 적용
-    public static BigDecimal applyEventDiscount(LocalDate reservationDate, OrderDetails orderDetails) {
-        BigDecimal christmasDiscount = checkChristmasDiscount(reservationDate);
-        BigDecimal decemberDiscount = checkDecemberDiscount(reservationDate, orderDetails);
-        BigDecimal specialDiscount = checkSpecialEvent(reservationDate);
-        return christmasDiscount.add(decemberDiscount).add(specialDiscount);
-    }
-
-    private static BigDecimal checkChristmasDiscount(LocalDate reservationDate) {
+    // 디데이 할인
+    public static BigDecimal checkChristmasDiscount(LocalDate reservationDate) {
         if (!EventMonth.isDDay(reservationDate)) {
             return NOT_DISCOUNT;
         }
@@ -38,13 +29,8 @@ public class EventChecker {
         return ChristmasEvent.discountChristmas(reservationDay);
     }
 
-    private static BigDecimal checkDecemberDiscount(LocalDate reservationDate, OrderDetails orderDetails) {
-        BigDecimal weekdayDiscount = checkWeekdayEvent(reservationDate, orderDetails);
-        BigDecimal weekendDiscount = checkWeekendEvent(reservationDate, orderDetails);
-        return weekdayDiscount.add(weekendDiscount);
-    }
-
-    private static BigDecimal checkWeekdayEvent(LocalDate reservationDate, OrderDetails orderDetails) {
+    // 평일 할인
+    public static BigDecimal checkWeekdayEvent(LocalDate reservationDate, OrderDetails orderDetails) {
         if (!EventMonth.isWeekday(reservationDate)) {
             return NOT_DISCOUNT;
         }
@@ -53,7 +39,8 @@ public class EventChecker {
         return DecemberEvent.discountDecember(dessertQuantity);
     }
 
-    private static BigDecimal checkWeekendEvent(LocalDate reservationDate, OrderDetails orderDetails) {
+    // 주말 할인
+    public static BigDecimal checkWeekendEvent(LocalDate reservationDate, OrderDetails orderDetails) {
         if (!EventMonth.isWeekend(reservationDate)) {
             return NOT_DISCOUNT;
         }
@@ -62,7 +49,8 @@ public class EventChecker {
         return DecemberEvent.discountDecember(mainQuantity);
     }
 
-    private static BigDecimal checkSpecialEvent(LocalDate reservationDate) {
+    // 특별 할인
+    public static BigDecimal checkSpecialEvent(LocalDate reservationDate) {
         if (!EventMonth.isSpecialDay(reservationDate)) {
             return NOT_DISCOUNT;
         }
@@ -70,14 +58,17 @@ public class EventChecker {
     }
 
     // 샴페인 증정
-    public static String checkChampagneEvent(OrderDetails orderDetails) {
+    public static Map<String, BigDecimal> checkChampagneEvent(OrderDetails orderDetails) {
+        Map<String, BigDecimal> gift = new HashMap<>();
         BigDecimal totalOrder = orderDetails.getTotalOrder();
         if (isLowerLimit(LOWER_LIMIT_CHAMPAGNE, totalOrder)) {
             Menu champagne = DecemberEvent.giftChampagne();
             orderDetails.addGift(champagne, ONE);
-            return champagne.getMenuName();
+            gift.put(champagne.getMenuName(), champagne.getMenuPrice());
+            return gift;
         }
-        return NOT_APPLICABLE;
+        gift.put(NOT_APPLICABLE, BigDecimal.ZERO);
+        return gift;
     }
 
     // 배지 부여
