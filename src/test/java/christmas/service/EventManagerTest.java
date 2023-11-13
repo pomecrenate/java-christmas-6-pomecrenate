@@ -1,7 +1,7 @@
 package christmas.service;
 
 import christmas.domain.OrderDetails;
-import christmas.domain.constant.Menu;
+import christmas.domain.constants.Menu;
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

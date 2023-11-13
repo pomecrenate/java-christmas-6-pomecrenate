@@ -1,10 +1,10 @@
 package christmas.service;
 
-import static christmas.domain.constant.MenuCategory.DESSERT;
-import static christmas.domain.constant.MenuCategory.MAIN;
+import static christmas.domain.constants.MenuCategory.DESSERT;
+import static christmas.domain.constants.MenuCategory.MAIN;
 
 import christmas.domain.OrderDetails;
-import christmas.domain.constant.Menu;
+import christmas.domain.constants.Menu;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;

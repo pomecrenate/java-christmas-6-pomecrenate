@@ -1,4 +1,4 @@
-package christmas.domain.constant;
+package christmas.domain.constants;
 
 public enum EventBadge {
     STAR("⭐"),

@@ -3,7 +3,7 @@ package christmas.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import christmas.domain.OrderDetails;
-import christmas.domain.constant.Menu;
+import christmas.domain.constants.Menu;
 import java.math.BigDecimal;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;

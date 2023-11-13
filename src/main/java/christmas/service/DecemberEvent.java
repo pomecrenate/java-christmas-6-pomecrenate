@@ -1,12 +1,12 @@
 package christmas.service;
 
-import static christmas.domain.constant.EventBadge.SANTA;
-import static christmas.domain.constant.EventBadge.STAR;
-import static christmas.domain.constant.EventBadge.TREE;
-import static christmas.domain.constant.Menu.CHAMPAGNE;
+import static christmas.domain.constants.EventBadge.SANTA;
+import static christmas.domain.constants.EventBadge.STAR;
+import static christmas.domain.constants.EventBadge.TREE;
+import static christmas.domain.constants.Menu.CHAMPAGNE;
 import static christmas.service.EventMonth.THIS_YEAR;
 
-import christmas.domain.constant.Menu;
+import christmas.domain.constants.Menu;
 import java.math.BigDecimal;
 
 public class DecemberEvent {

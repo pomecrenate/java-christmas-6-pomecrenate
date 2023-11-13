@@ -2,7 +2,7 @@ package christmas.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import christmas.domain.constant.Menu;
+import christmas.domain.constants.Menu;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;

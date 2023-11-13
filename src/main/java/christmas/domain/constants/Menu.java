@@ -1,11 +1,12 @@
-package christmas.domain.constant;
+package christmas.domain.constants;
 
-import static christmas.domain.constant.MenuCategory.APPETIZER;
-import static christmas.domain.constant.MenuCategory.BEVERAGE;
-import static christmas.domain.constant.MenuCategory.DESSERT;
-import static christmas.domain.constant.MenuCategory.MAIN;
+import static christmas.domain.constants.MenuCategory.APPETIZER;
+import static christmas.domain.constants.MenuCategory.BEVERAGE;
+import static christmas.domain.constants.MenuCategory.DESSERT;
+import static christmas.domain.constants.MenuCategory.MAIN;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public enum Menu {
     CAESAR_SALAD(APPETIZER, "시저샐러드", new BigDecimal("8000")),
@@ -29,6 +30,12 @@ public enum Menu {
         this.menuCategory = menuCategory;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
+    }
+
+    // 등록된 메뉴인지 검색
+    public static boolean hasMenu(String menuName) {
+        return Arrays.stream(Menu.values())
+                .anyMatch(menu -> menu.getMenuName().equalsIgnoreCase(menuName));
     }
 
     public MenuCategory getMenuCategory() {
