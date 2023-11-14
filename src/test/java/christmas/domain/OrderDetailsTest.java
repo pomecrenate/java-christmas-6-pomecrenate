@@ -27,7 +27,7 @@ public class OrderDetailsTest {
         OrderDetails orderDetails = OrderDetails.create();
         orderDetails.addOrder(menu, input);
         BigDecimal expectedTotal = menu.getMenuPrice().multiply(BigDecimal.valueOf(input));
-        assertEquals(expectedTotal, orderDetails.getTotalOrder());
-        System.out.println(orderDetails.getTotalOrder());
+        assertEquals(expectedTotal, orderDetails.getTotalOrderPrice());
+        System.out.println(orderDetails.getTotalOrderPrice());
     }
 }

@@ -6,12 +6,15 @@ import christmas.domain.OrderDetails;
 import christmas.domain.constants.Menu;
 import christmas.exception.ErrorMessage;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 public class Parser {
     public static final String DELIMITER_COMMA = ",";
     private static final String DELIMITER_HYPHEN = "-";
+    private static final String PRICE_FORMAT = "#,##0";
     private static final int FIRST_ELEMENT = 0;
     private static final int SECOND_ELEMENT = 1;
 
@@ -24,13 +27,13 @@ public class Parser {
         Validator.validateEndWithComma(reservationOrder);
         OrderDetails orderDetails = OrderDetails.create();
         String[] orderForms = reservationOrder.split(DELIMITER_COMMA);
-        createOrderForm(orderForms, orderDetails);
-        Validator.validateMaximumQuantity(orderDetails);
+        makeOrderForm(orderForms, orderDetails);
         Validator.validateMenuOnlyBeverage(orderDetails);
+        Validator.validateMaximumQuantity(orderDetails);
         return orderDetails;
     }
 
-    private static void createOrderForm(String[] orderForms, OrderDetails orderDetails) {
+    private static void makeOrderForm(String[] orderForms, OrderDetails orderDetails) {
         for (String orderForm : orderForms) {
             Validator.validateOrderPattern(orderForm);
             String[] order = orderForm.split(DELIMITER_HYPHEN);
@@ -42,6 +45,10 @@ public class Parser {
             Validator.validateDuplicateMenu(orderDetails, menu);
             orderDetails.addOrder(menu, quantity);
         }
+    }
+
+    public static String parsePrice(BigDecimal price) {
+        return new DecimalFormat(PRICE_FORMAT).format(price);
     }
 
     public static Menu parseStringToMenu(String input) {
@@ -94,7 +101,11 @@ public class Parser {
 
     public static LocalDate parseIntToLocalDate(final int input) {
         EventMonth eventMonthInput = EventMonth.from(input);
-        return eventMonthInput.getReservationDate();
+        try {
+            return eventMonthInput.getReservationDate();
+        } catch (DateTimeException exception) {
+            throw ErrorMessage.newIllegalArgumentException(INVALID_DATE);
+        }
     }
 
     public static int parseLocalDateToInt(LocalDate input) {

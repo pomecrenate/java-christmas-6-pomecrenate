@@ -18,15 +18,17 @@ public class ParserTest {
         System.out.println(reservationDate);
     }
 
+    @DisplayName("정상 주문은 예외 발생하지 않음")
     @Test
     void parseReservationOrder_ValidOrderDetails_NoExceptionThrown() {
         String validOrder = "샴페인-2,바비큐립-10";
         assertDoesNotThrow(() -> Parser.parseReservationOrder(validOrder));
     }
 
+    @DisplayName("비정상 주문은 예외 발생함")
     @Test
     void parseReservationOrder_InvalidOrderDetails_ExceptionThrown() {
-        String invalidOrder = "InvalidOrder";
+        String invalidOrder = "샴페인-2,바비큐립-10 ";
         assertThrows(IllegalArgumentException.class, () -> Parser.parseReservationOrder(invalidOrder));
     }
 }

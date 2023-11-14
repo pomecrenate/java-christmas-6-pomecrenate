@@ -4,15 +4,19 @@ import static christmas.domain.constants.MenuCategory.BEVERAGE;
 
 import christmas.domain.constants.Menu;
 import christmas.domain.constants.MenuCategory;
+import christmas.service.MenuComparator;
+import christmas.service.StringComparator;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class OrderDetails {
+    private static final int INIT_QUANTITY = 0;
     private final Map<Menu, Integer> menuQuantities;
 
     private OrderDetails() {
-        this.menuQuantities = new HashMap<>();
+        this.menuQuantities = new TreeMap<>(new MenuComparator());
     }
 
     public static OrderDetails create() {
@@ -29,7 +33,7 @@ public class OrderDetails {
     }
 
     public Map<String, Integer> getOrder() {
-        Map<String, Integer> order = new HashMap<>();
+        Map<String, Integer> order = new TreeMap<>(new StringComparator());
         menuQuantities.forEach((menu, quantity) -> order.put(menu.getMenuName(), quantity));
         return order;
     }
@@ -47,7 +51,7 @@ public class OrderDetails {
         return orderCategoryName;
     }
 
-    public BigDecimal getTotalOrder() {
+    public BigDecimal getTotalOrderPrice() {
         BigDecimal totalOrder = BigDecimal.ZERO;
 
         for (Map.Entry<Menu, Integer> entry : menuQuantities.entrySet()) {
@@ -61,7 +65,7 @@ public class OrderDetails {
     }
 
     public int getTotalQuantity() {
-        int quantity = 0;
+        int quantity = INIT_QUANTITY;
         for (Integer value : menuQuantities.values()) {
             quantity += value;
         }
@@ -75,5 +79,9 @@ public class OrderDetails {
     public boolean hasOnlyBeverage() {
         return menuQuantities.keySet().stream()
                 .allMatch(menu -> menu.getMenuCategory() == BEVERAGE);
+    }
+
+    public Map<Menu, Integer> getMenuQuantities() {
+        return menuQuantities;
     }
 }
